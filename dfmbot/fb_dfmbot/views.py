@@ -15,7 +15,7 @@ VERIFY_TOKEN = "2318934571"
 jokes = { 'stupid': ["""She needs a recipe to make ice cubes.""",
                      """She thinks DNA is the National Dyslexics Association."""],
          'fat':      ["""When she goes to a restaurant, instead of a menu, she gets an estimate.""",
-                      """When the cops see her on a street corner, they yell, "Hey you guys, break it up!" """], 
+                      """When the cops see her on a street corner, they yell, "Hey you guys, break it up!" """],
          'dumb': ["""When God was giving out brains, she thought they were milkshakes and asked for extra thick.""",
                   """She locked her keys inside her motorcycle."""] }
 
@@ -29,7 +29,7 @@ def post_facebook_message(fbid, recevied_message):
             joke_text = random.choice(jokes[token])
             break
     if not joke_text:
-        joke_text = "I didn't understand! Send 'stupid', 'fat', 'dumb' for a Yo Mama joke!"
+        joke_text = "I didn't understand! Send 'stupid', 'fat', 'dumb' for a joke!"
 
     user_details_url = "https://graph.facebook.com/v2.6/%s"%fbid
     user_details_params = {'fields':'first_name,last_name,profile_pic', 'access_token':PAGE_ACCESS_TOKEN}
