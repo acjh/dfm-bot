@@ -38,10 +38,22 @@ def post_facebook_message(fbid, recevied_message):
     user_details = requests.get(user_details_url, user_details_params).json()
     joke_text = 'Yo '+user_details['first_name']+'..! ' + joke_text
 
+    user = update_user_details(fbid, user_details)
+
     post_message_url = 'https://graph.facebook.com/v2.6/me/messages?access_token=%s'%PAGE_ACCESS_TOKEN
     response_msg = json.dumps({"recipient":{"id":fbid}, "message":{"text":joke_text}})
     status = requests.post(post_message_url, headers={"Content-Type": "application/json"},data=response_msg)
     pprint(status.json())
+
+def update_user_details(fbid, user_details):
+    try:
+        user = Person.objects.get(fbid=fbid)
+    except Person.DoesNotExist:
+        user = Person(fbid=fbid)
+    user.first_name = user_details['first_name']
+    user.last_name = user_details['last_name']
+    user.save()
+    return user
 
 # Create your views here.
 class DFMBotView(generic.View):
